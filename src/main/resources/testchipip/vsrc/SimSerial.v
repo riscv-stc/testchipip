@@ -1,5 +1,6 @@
 import "DPI-C" function int serial_tick
 (
+    input  chandle channel,
     input  bit     serial_out_valid,
     output bit     serial_out_ready,
     input  int     serial_out_bits,
@@ -49,8 +50,9 @@ module SimSerial (
             __in_bits_reg <= 0;
             __out_ready_reg <= 0;
             __exit_reg <= 0;
-        end else begin
+          end else begin
             __exit = serial_tick(
+                TestDriver.testHarness.simdram.channel,
                 serial_out_valid,
                 __out_ready,
                 serial_out_bits,

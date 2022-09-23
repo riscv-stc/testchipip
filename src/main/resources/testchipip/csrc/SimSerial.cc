@@ -7,6 +7,8 @@
 testchip_tsi_t *tsi = NULL;
 
 extern "C" int serial_tick(
+        void *channel,
+
         unsigned char out_valid,
         unsigned char *out_ready,
         int out_bits,
@@ -25,7 +27,7 @@ extern "C" int serial_tick(
           abort();
 
         // TODO: We should somehow inspect whether or not our backing memory supports loadmem, instead of unconditionally setting it to true
-        tsi = new testchip_tsi_t(info.argc, info.argv, true);
+        tsi = new testchip_tsi_t(info.argc, info.argv, true, channel);
     }
 
     tsi->tick(out_valid, out_bits, in_ready);

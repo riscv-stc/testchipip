@@ -128,6 +128,7 @@ void mm_t::load_mem(unsigned long start, const char *fname)
   std::ifstream in(fname);
   unsigned long fsize = 0;
 
+  std::cout << __FUNCTION__ << ": " << std::hex << start << ", " << fname << std::endl;
   if (!in.is_open()) {
     fprintf(stderr, "Couldn't open loadmem file %s\n", fname);
     abort();
@@ -140,6 +141,7 @@ void mm_t::load_mem(unsigned long start, const char *fname)
       char byte = (parse_nibble(line[i]) << 4) | parse_nibble(line[i+1]);
       ssize_t addr = (start + j) % size;
       data[addr] = byte;
+      //std::cout << "data[" << std::hex << addr << "] = " << unsigned(byte) << std::endl;
     }
     start += line.length()/2;
     fsize += line.length()/2;

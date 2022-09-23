@@ -139,6 +139,11 @@ module SimDRAM #(
   reg [ID_BITS-1:0] __b_id_reg;
   reg [1:0] __b_resp_reg;
 
+  initial begin
+    channel = memory_init(MEM_SIZE, WORD_SIZE, LINE_SIZE, ID_BITS);
+    initialized = 1'b1;
+  end
+
   always @(posedge clock) begin
     if (reset) begin
       __ar_ready = 1'b0;
@@ -153,10 +158,10 @@ module SimDRAM #(
       __r_valid_reg  <= 1'b0;
       __b_valid_reg  <= 1'b0;
     end else begin
-      if (!initialized) begin
-        channel = memory_init(MEM_SIZE, WORD_SIZE, LINE_SIZE, ID_BITS);
-        initialized = 1'b1;
-      end
+      //if (!initialized) begin
+      //  channel = memory_init(MEM_SIZE, WORD_SIZE, LINE_SIZE, ID_BITS);
+      //  initialized = 1'b1;
+      //end
 
       memory_tick(
         channel,
